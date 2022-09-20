@@ -1,0 +1,312 @@
+<html>
+<head>
+    <style>
+        table,  td {
+            
+            border: 1px solid black;
+            width : 240px;
+        }
+        tr {
+            border: 1px solid rgb(190, 190, 190);       
+            background-color: #e0e271;
+            height:40px;
+        }
+    </style>
+
+    <script>
+        var cella = 1
+        
+        
+        function Scendi(){
+
+         restContentCell();
+
+            var record =document.getElementsByTagName('td').length;
+
+            if (cella < record) {
+                cella = cella + 1
+                var myTag = "td" + cella;
+                var ExTag = "td" + (cella -1);  
+                document.getElementById(myTag).innerText = "cella" + cella.toString();
+                document.getElementById(ExTag).innerText = "";
+                document.getElementById('mess').innerHTML = "";
+            } else {
+                document.getElementById('mess').innerHTML = "<b>Non puoi scendere più di così, hai raggiunto l'ultima cella</b>";
+            }
+        }
+
+        function Sali(){
+            document.getElementById('mess').innerHTML = "";
+            var record =document.getElementsByTagName('td').length;
+                if (cella > 1){
+                cella = cella - 1
+                var myTag = "td" + cella;
+                var ExTag = "td" + (cella + 1);
+                document.getElementById(myTag).innerText = "cella" + cella.toString();
+                document.getElementById(ExTag).innerText = "";
+            } else{
+                document.getElementById('mess').innerHTML = "<b>Non puoi salire più di così, hai raggiunto l'ultima cella</b>";
+            }
+        }
+
+        function Destra(){
+            document.getElementById('mess').innerHTML = "";
+            var record =document.getElementsByTagName('td').length;
+            if ((cella + 4)<=record){
+                cella = cella + 4
+                var myTag = "td" + cella;
+                var ExTag = "td" + (cella - 4);
+                document.getElementById(myTag).innerText = "cella" + cella.toString();
+                document.getElementById(ExTag).innerText = "";
+            } else{
+                document.getElementById('mess').innerHTML = "<b>Non puoi andare più a destra di così, hai raggiunto l'ultima cella</b>";
+            }
+        }
+
+        function Sinistra(){
+            document.getElementById('mess').innerHTML = "";
+            var record =document.getElementsByTagName('td').length;
+            if ((cella - 4)>0){
+            cella = cella - 4
+            var myTag = "td" + cella;
+            var ExTag = "td" + (cella + 4);
+            document.getElementById(myTag).innerText = "cella" + cella.toString();
+            document.getElementById(ExTag).innerText = "";
+            } else{
+            document.getElementById('mess').innerHTML = "<b>Non puoi andare più a sinistra di così, hai raggiunto l'ultima cella</b>";
+            }
+        }
+        //Modifica Stuttura della tabella
+        function addRow(){
+            restContentCell();
+            var table =document.getElementsByTagName('tbody')[0];
+            var arr_tr=table.getElementsByTagName('tr');
+            var tdCount=arr_tr[0].getElementsByTagName('td').length; //per prendere il numero di colonne nella 1° riga
+            var tr = document.createElement('tr');
+            table.appendChild(tr);
+            //for(inizializziamo delle variabili ;condizione;cosa fare alla fine){
+            for(var i=0;i<tdCount;i++){
+                var td = document.createElement('td');
+                tr.appendChild(td);
+            }
+            idReset(table)
+        }
+        function addColum(){
+            restContentCell();
+            var table =document.getElementsByTagName('tbody')[0];
+            var arr_tr=table.getElementsByTagName('tr');
+            for(var i=0;i<arr_tr.length;i++){
+                var td = document.createElement('td');
+                arr_tr[i].appendChild(td);
+            }
+            idReset(table)
+        }
+        function RemoveRow(){
+            restContentCell();
+            var table =document.getElementsByTagName('tbody')[0];
+            var arr_tr=table.getElementsByTagName('tr');
+            var primaRiga = arr_tr[0];
+            var last = arr_tr.length-1;//posizione dell'ultima
+            table.removeChild(arr_tr[last])
+            idReset(table)
+        }
+ function prova(){
+
+    var test =['luca', 'marco','paolo']
+    test.splice(1,0,'Gianni');
+    console.log(test)
+ }
+        function RemoveColumn(){
+            restContentCell();
+            var table =document.getElementsByTagName('tbody')[0];
+            var arr_td=table.getElementsByTagName('td');
+            var idUlt = "td" + (arr_td.length);
+            var valoreUlt = (arr_td.length);
+            var numRighe = table.getElementsByTagName("tr").length;
+  
+            for (var i=0; i<numRighe;i++){
+                //arr_td.splice(valoreUlt, 1);
+                //valoreUlt=valoreUlt-4;
+                var elem = document.getElementById(idUlt);
+                elem.remove();
+                valoreUlt = valoreUlt-1;
+                idUlt = "td" + valoreUlt;
+
+            }
+            idReset(table)
+        }
+
+        function RemoveRowByValue(){
+            restContentCell();
+            var numRow=document.getElementById("numberRow").value;
+            var table =document.getElementsByTagName('tbody')[0];
+            var arr_tr=table.getElementsByTagName('tr');
+            if(numRow>=arr_tr.length){
+             alert("Errore! numero troppo elevato");
+         
+            }
+            else{
+                var last = arr_tr.length-1;//posizione dell'ultima
+                table.removeChild(arr_tr[numRow])
+                idReset(table);
+            }
+            return true;
+        }
+
+        function restContentCell(){
+            var celle= document.getElementsByTagName('td');
+            var tdCount=celle.length;
+            for(var i=0;i<tdCount;i++){
+                celle[i].innerText="";
+            }
+        }
+        function idReset(table){            
+            //prendiamo tutte le righe
+            var arr_tr=table.getElementsByTagName('tr');
+            for (var r=0;r<arr_tr.length;r++){//si ciclano le righe
+                 var arr_td=arr_tr[r].getElementsByTagName('td');//prendiamo per ogni riga le sue colonne           
+                for (var c=0;c<arr_td.length;c++){//cicliamo le colonne di ogni riga
+                    arr_td[c].id="td"+(r+(arr_tr.length*c)+1).toString();//andiamo a impostare l'id
+                    //r+(arr_tr.length*c)+1
+                    //r=numero attuale di riga in cui siamo
+                    //arr_tr.length= numero totale di righe
+                    //c=colonna in cui siamo
+                }
+
+            }
+        }
+
+        function CambiaSfondo(){
+            var riga = document.getElementById("riga").value;
+            var colonna = document.getElementById("colonna").value;
+            var totRighe = document.getElementsByTagName("tr").length;
+            var numCella = (colonna-1)*totRighe+(1*riga);
+            var IdCella = "td" + numCella;
+
+            document.getElementById(IdCella).style.backgroundColor = "red";
+        }
+
+        function resetColor() {
+            var arr_td=document.getElementsByTagName("td").length;
+            for (var i=1; i<=arr_td; i++){
+            var idCella = "td"+i;
+            document.getElementById(idCella).style.backgroundColor = "#e0e271";
+            }
+
+        }
+
+        function resetTabella(){
+            var table =document.getElementsByTagName('tbody')[0];
+            var righe = table.getElementsByTagName("tr").length;
+            var primaRiga = table.getElementsByTagName("tr")[0];
+            var colonne = primaRiga.getElementsByTagName("td").length;
+            
+            //var primaRiga = "tr" + righe[0];
+            //var idPrimaRiga = document.getElementById("primariga");
+            //var colonnePrimaRiga = idPrimaRiga.getElementsByTagName("td").length;
+            
+
+            while (righe > righeIniz){
+                RemoveRow();
+                righe--
+            }
+
+            while (colonne > colonneIniz){
+                RemoveColumn();
+                colonne--
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>ESEMPIO TABELLA</h1>
+
+<table>
+    <tbody>
+        <tr>
+            <td id="td1">cella 1</td>
+            <td id="td5"></td>
+            <td id="td9"></td>
+        </tr>
+
+        <tr>
+            <td id="td2"></td>
+            <td id="td6"></td>
+            <td id="td10"></td>
+        </tr>
+
+        <tr>
+            <td id="td3"></td>
+            <td id="td7"></td>
+            <td id="td11"></td>
+        </tr>
+
+        <tr>
+            <td id="td4"></td>
+            <td id="td8"></td>
+            <td id="td12"></td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<br>
+
+
+<input type="button" onclick="Scendi();" value="Scendi"/>
+<input type="button" onclick="Sali();" value="Sali"/>
+<input type="button" onclick="Sinistra();" value="Sinistra"/>
+<input type="button" onclick="Destra();" value="Destra"/>
+
+<br/>
+<br/>
+
+<input type="button" onclick="addRow();" value="AggiungiRiga"/>
+<input type="button" onclick="addColum();" value="AggiungiColonna"/>
+<input type="button" onclick="RemoveRow();" value="EliminaRiga"/>
+
+<br/>
+<br/>
+<input type="number" id="numberRow" value="0" min="0" max="99"/>
+<input type="button" onclick="RemoveRowByValue();" value="EliminaRiga"/>
+<br/>
+<br/>
+<p id="mess"></p>
+
+<form action="pippo.html">
+    <labe>User Name</labe>
+    <input type="text" id="UserName" name="UserName">
+    <labe>Password</labe>
+    <input type="password" id="Pass" name="prova">
+    <input type="submit"/>
+</form>
+
+
+<br>
+<br>
+
+<label>Inserire il numero di riga</label>
+<input type="number" id="riga" />
+<label>Inserire il numero della colonna</label>
+<input type="number" id="colonna"/>
+<input type="button" onclick="CambiaSfondo()" value="Cambia sfondo">
+<input type="button" onclick="resetColor()" value="ripristina sfondo">
+
+<br>
+<br>
+<input type="button" onclick="resetTabella()" value="Ripristina tabella iniziale">
+<input type="button" onclick="prova()" value="Ripristina tabella iniziale">
+
+
+<script>
+        var tabellaIniz = document.getElementsByTagName("tbody")[0];
+        var righeIniz = tabellaIniz.getElementsByTagName("tr").length;
+        var primaRigaIniz = tabellaIniz.getElementsByTagName("tr")[0];
+        var colonneIniz = primaRigaIniz.getElementsByTagName("td").length;
+        
+</script>
+
+</body>
+
+</html>
