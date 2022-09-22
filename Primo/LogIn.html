@@ -14,9 +14,6 @@
     </style>
 
     <script>
-
-//CONTROLLARE AL CARICAMENTO SE ABBIAMO GIà UN VALORE NELLA LOCAL STORAGE SE SI  SI MANDA DIRETTAMENTE ALLA 2° PAGINA
-
         function esempioDown(){
             console.log("DOWN")
      
@@ -27,8 +24,6 @@
         function validate(e){
            var UserName = document.getElementById("UserName");
            var Pass     = document.getElementById("Pass");
-           var mail     = document.getElementById("email").value;
-
            if(UserName.value==""){
                 e.preventDefault()
                 return false;
@@ -38,42 +33,11 @@
                  e.preventDefault()
                 return false;
            }
-
-           punto = mail.indexOf(".");
-           if (punto == -1){
-                alert("manca il punto!")
-                e.preventDefault();
-                return false
-           }
-
-           chiocciola = mail.indexOf("@");
-           if (chiocciola == -1){
-                alert("manca la @ !")
-                e.preventDefault();
-                return false
-           }
          //CONTROLARE SE L'EMAIL CONTIENE UNA CHIOCCIOLA E UN PUNTO ES EMAIL@MAI.LL
            Pass.value=btoa(Pass.value);
-           localStorage.setItem("UserName",UserName.value)
-           //localStorage.setItem("UserName",UserName.value)->eRRORE NON SI PUò CHIAMARE USERNAME
-           //localStorage.setItem("UserName2",UserName.value)->OK HO AGGIUNTO IL 2
-           return true;
-        }
-
-
-
-        function validateDati(c){
-           var nome = document.getElementById("nome");
-           var cognome     = document.getElementById("cognome");
-           if(nome.value==""){
-                c.preventDefault()
-                return false;
-           }
-           if(cognome.value==""){
-                 c.preventDefault()
-                return false;
-           }
-         
+           localStorage.setItem("UserName",UserName.value);
+           localStorage.setItem("Pass",Pass.value);
+           localStorage.setItem("Data",Date.now());
            return true;
         }
     </script>
@@ -88,26 +52,9 @@
     <input type="text" id="UserName" name="UserName">
     <labe>Password</labe>
     <input type="password" id="Pass" name="prova" >
-    <label>Email</label>
-    <input type="text" id="email" name="email">
-    <input type="submit" />
+    <input type="submit" onmousedown="esempioDown()" onmouseup="esempioUp()"  />
     <!--aggiungere EMAIL-->
 </form>
-
-<br>
-<br>
-
-<form action="esempio2.html" onsubmit="validateDati(event)">
-    <label>Nome</label>
-    <input type="text" id="nome"/>
-    <label for="Cognome">Cognome</label>
-    <input type="text" id="cognome"/>
-    <input type="submit" value="Invia" />
-</form>
-
-
-
-
 <!--CREARE UN ESEMPIO DI FORM ALTERNATIVO CHE INVII UN CONTENUTO A UNA PAGINA CHIAMATA ESEMPIO2.HTML-->
 
 <br>

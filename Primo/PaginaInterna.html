@@ -15,17 +15,11 @@
 
     <script>
         var cella = 1
-
-        window.addEventListener('load', function() {
-            const queryString=window.location.search;
-           // console.log(queryString);
-            var params=new URLSearchParams(queryString);
-            if( params.has("UserName"))//SE NELLA QUERY STRING NONC'è ALLORA TI FACCIO RIFARE LA LOG IN
-                document.getElementById("NomeUtente").innerText=params.get("UserName");
-            else
-                document.location="logIn.html"
-        });        
-
+  
+        window.onload = function(e){             
+            var elemento =document.getElementById('UserName');
+            elemento.innerText=localStorage.getItem("UserName");
+        }
         function Scendi(){
 
          restContentCell();
@@ -162,8 +156,11 @@
 </head>
 
 <body>
-    <label id="NomeUtente"> </label>
+
+    <label id="UserName"> </label>
+
     <h1>ESEMPIO TABELLA</h1>
+
 <table>
     <tbody>
         <tr>
@@ -214,15 +211,12 @@
 <input type="button" onclick="RemoveRowByValue();" value="EliminaRiga"/>
 <br/>
 <br/>
+<!--CHIEDERE 2 NUMERI NUMERO DELLA RIGA E IL NUMERO DELLA COLONNA 2 DI TIPO input type="number"-->
+<!-- 1 BOTTONE  1 CHE SETTA LO SFONDO DILLA CELLA RICHIESTA AL COLORE rOSSO-->
+<!-- RIPORTARE LA TABELLA ALLE DIMENSIONI DI DEFAULT (QUELLE CHE AVEVA QUANDO LA PAGINA è STATA CARICATA) -->
+<br/>
+<br/>
 <p id="mess"></p>
-
-<form action="pippo.html">
-    <labe>User Name</labe>
-    <input type="text" id="UserName" name="UserName">
-    <labe>Password</labe>
-    <input type="password" id="Pass" name="prova">
-    <input type="submit"/>
-</form>
 
 
 <br>
