@@ -1,0 +1,31 @@
+<html>
+<head>
+
+    <script>
+        var cella = 1
+  //esempio url Errore.html?error=LogInScaduta&message=Loggati
+        window.onload = function(event){     
+            const urlParms=window.document.location.search;
+            var params= new URLSearchParams(urlParms)   
+             
+            if(params.has("error")){
+                document.getElementById("Errore").innerText= params.get("error")
+            }      
+            if(params.has("message")){
+                document.getElementById("Message").innerText= params.get("message")
+            }  
+        }
+</script>
+
+<body>
+    <h1>Erroreeeeee</h1>
+
+    <label id="Errore"></label>
+    <br>
+    <br>
+    <br>
+    <label id="Message"></label>
+
+</body>
+
+</html>

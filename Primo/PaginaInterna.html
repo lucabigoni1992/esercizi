@@ -16,14 +16,23 @@
     <script>
         var cella = 1
   
-        window.onload = function(e){             
+        window.onload = function(event){     
+           var locUserName= localStorage.getItem("UserName");      
+           if(locUserName==null ||locUserName==""){
+              window.document.location="Errore.html?error=LogIn%20Scaduto&message=Loggati%20nuovamente";
+              return;
+           }  
+           if((Date.now()-localStorage.getItem("Data"))/1000/60>(24*60)){
+              window.document.location="Errore.html?error=TimeOut&message=Sessione%20Scaduta";
+           return;
+            }  
             var elemento =document.getElementById('UserName');
-            elemento.innerText=localStorage.getItem("UserName");
+            elemento.innerText=localStorage.getItem("UserName");            
         }
+
+
         function Scendi(){
-
          restContentCell();
-
             var record =document.getElementsByTagName('td').length;
 
             if (cella < record) {
@@ -100,6 +109,9 @@
             var arr_tr=table.getElementsByTagName('tr');
             for(var i=0;i<arr_tr.length;i++){
                 var td = document.createElement('td');
+                td.onclick=function(e){     
+                  console.log(e.target);          
+                }
                 arr_tr[i].appendChild(td);
             }
             idReset(table)
