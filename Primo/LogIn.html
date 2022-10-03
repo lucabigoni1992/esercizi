@@ -37,12 +37,13 @@
            Pass.value=btoa(Pass.value);
             var checkLogin = localStorage.getItem("UserName",UserName.value);
 
-            If (checkLogin == "null" || checkLogin == "undefined"){
-           localStorage.setItem("UserName",UserName.value);
-           localStorage.setItem("Pass",Pass.value);
-           localStorage.setItem("Data",Date.now());
-           return true;
-            } else {
+           if (checkLogin == null || checkLogin == undefined){
+                localStorage.setItem("UserName",UserName.value);
+                localStorage.setItem("Pass",Pass.value);
+                localStorage.setItem("Data",Date.now());
+                return true;
+            } 
+            else {
                 console.log("Utente già regitsrato");
             }
         }
