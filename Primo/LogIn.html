@@ -35,10 +35,16 @@
            }
          //CONTROLARE SE L'EMAIL CONTIENE UNA CHIOCCIOLA E UN PUNTO ES EMAIL@MAI.LL
            Pass.value=btoa(Pass.value);
+            var checkLogin = localStorage.getItem("UserName",UserName.value);
+
+            If (checkLogin == "null" || checkLogin == "undefined"){
            localStorage.setItem("UserName",UserName.value);
            localStorage.setItem("Pass",Pass.value);
            localStorage.setItem("Data",Date.now());
            return true;
+            } else {
+                console.log("Utente già regitsrato");
+            }
         }
     </script>
 </head>
